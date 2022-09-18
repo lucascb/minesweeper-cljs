@@ -1,0 +1,31 @@
+body {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  background: rgb(34,193,195);
+  background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(142,45,253,1) 100%);
+  height: 900px;
+}
+
+#app {
+  max-width: 490px;
+  margin: auto;
+}
+
+.grid-button {
+  width: 50px;
+  height: 50px;
+}
+
+h1 {
+  color: white;
+  text-shadow: 2px 2px black;
+  text-align: center;
+}
+
+p {
+  text-align: center;
+}
+
+#reset-button {
+  max-width: 50px;
+  margin: auto;
+}
