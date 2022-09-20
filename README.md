@@ -2,7 +2,7 @@
 
 A simple Minesweeper game made using clojurescript + re-frame (and Reagent) + shadow-cljs
 
-https://user-images.githubusercontent.com/11011361/190932317-3712a187-363d-4793-a8c6-f02ac0ed3f40.mov
+https://user-images.githubusercontent.com/11011361/191140108-422e8a5b-f9f3-4444-8aa0-acb703414759.mov
 
 ## Getting Started
 
