@@ -84,10 +84,10 @@
          flags :flags
          remaining-flags :remaining-flags} current-state] 
     (cond
-      (zero? remaining-flags) current-state
       (contains? flags pos) (assoc current-state
                                    :flags (->> flags (remove #(= % pos)) set)
                                    :remaining-flags (inc remaining-flags))
+      (zero? remaining-flags) current-state
       :else (let [flags' (conj flags pos)
                   won? (= mines flags')]
               (assoc current-state
