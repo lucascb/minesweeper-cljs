@@ -1,5 +1,7 @@
 # minesweeper-cljs
 
+[Try it online!](https://lucascb.github.io/projects/minesweeper-cljs/index.html)
+
 A simple Minesweeper game made using clojurescript + re-frame (and Reagent) + shadow-cljs
 
 https://user-images.githubusercontent.com/11011361/191140108-422e8a5b-f9f3-4444-8aa0-acb703414759.mov
