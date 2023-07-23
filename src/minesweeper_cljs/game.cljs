@@ -1,6 +1,7 @@
-(ns minesweeper-cljs.game)
+(ns minesweeper-cljs.game
+  (:require [clojure.set :as set]))
 
-(defn get-random-mines-pos
+(defn- get-random-mines-pos
   [grid-size number-of-mines]
   (let [all-pos (for [i (range grid-size)]
                   (for [j (range grid-size)]
@@ -11,11 +12,11 @@
          (take number-of-mines)
          set)))
 
-(defn valid-pos?
+(defn- valid-pos?
   [grid-size [x y]]
   (and (<= 0 x (dec grid-size)) (<= 0 y (dec grid-size)))) 
 
-(defn get-neighbors-of-pos
+(defn- get-neighbors-of-pos
   [grid-size [x y]]
   (->> [[(inc x) y]
         [x (inc y)]
@@ -27,12 +28,12 @@
         [(dec x) (inc y)]]
        (filter #(valid-pos? grid-size %))))
 
-(defn get-number-of-neighbor-mines
+(defn- get-number-of-neighbor-mines
   [grid-size mines pos]
   (reduce + (map #(get {true 1 false 0} (contains? mines %))
                  (get-neighbors-of-pos grid-size pos))))
 
-(defn get-game-grid
+(defn- get-game-grid
   [grid-size mines]
   (vec (for [i (range grid-size)]
          (vec (for [j (range grid-size)]
@@ -40,11 +41,11 @@
                   :mine
                   (get-number-of-neighbor-mines grid-size mines [i j])))))))
 
-(defn empty-pos?
+(defn- empty-pos?
   [grid [i j]]
   (= (nth (nth grid i) j) 0))
 
-(defn reveal-empty-pos-and-neighbors!
+(defn- reveal-empty-pos-and-neighbors!
   [grid revealed* pos]
   (when (not (contains? @revealed* pos))
     (swap! revealed* #(conj % pos))
@@ -52,7 +53,7 @@
       (doseq [neighbor (get-neighbors-of-pos (count grid) pos)]
         (reveal-empty-pos-and-neighbors! grid revealed* neighbor)))))
 
-(defn reveal-pos
+(defn- reveal-pos
   [grid revealed pos]
   (if (not (empty-pos? grid pos))
     (conj revealed pos) 
@@ -64,13 +65,9 @@
 
 (defn select-pos
   [current-state pos]
-  (println "select-pos" current-state pos)
-  (let [{revealed :revealed
-         mines :mines
-         grid :grid
-         flags :flags} current-state
+  (let [{:keys [revealed mines grid flags]} current-state
         revealed' (reveal-pos grid revealed pos)
-        flags' (clojure.set/difference flags revealed')]
+        flags' (set/difference flags revealed')]
     (assoc current-state
            :revealed revealed'
            :flags flags'
@@ -79,10 +76,7 @@
 
 (defn flag-pos
   [current-state pos]
-  (println "flag-pos" current-state pos)
-  (let [{mines :mines
-         flags :flags
-         remaining-flags :remaining-flags} current-state] 
+  (let [{:keys [mines flags remaining-flags]} current-state] 
     (cond
       (contains? flags pos) (assoc current-state
                                    :flags (->> flags (remove #(= % pos)) set)
@@ -97,8 +91,11 @@
                      :won won?)))))
 
 (defn get-initial-state
-  [grid-size number-of-mines]
-  (let [mines (get-random-mines-pos grid-size number-of-mines)]
+  [difficulty]
+  (let [[grid-size number-of-mines] (difficulty {:easy [9 9]
+                                                 :medium [9 12]
+                                                 :hard [9 15]})
+        mines (get-random-mines-pos grid-size number-of-mines)]
     {:grid-size grid-size
      :number-of-mines number-of-mines
      :remaining-flags number-of-mines

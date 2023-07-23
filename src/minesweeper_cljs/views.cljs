@@ -38,9 +38,9 @@
 
 (defn game-status
   [game-over? won? remaining-flags]
-  [:p (if game-over?
-        (if won? "You won!" "You lost!")
-        (str remaining-flags " flags remaining"))])
+  [:p {:id "game-status"} (if game-over?
+                            (if won? "You won!" "You lost!")
+                            (str remaining-flags " flags remaining"))])
 
 (defn reset-button
   []
@@ -48,19 +48,12 @@
    [:button {:on-click #(re-frame/dispatch [:reset-db])} "Reset"]])
 
 (defn main-panel []
-  (let [{grid :grid
-         flags :flags
-         revealed :revealed
-         remaining-flags :remaining-flags
-         game-over? :game-over
-         won? :won} @(re-frame/subscribe [::subs/game-state])]
+  (let [{:keys [grid flags revealed remaining-flags game-over won]} @(re-frame/subscribe [::subs/game-state])]
     [:div {:id "content"}
      [:div
-      [:h1 "Minesweeper"]
-      [:p "Instructions: Left-click to reveal position and right-click to place a flag. 
-           Place all flags where there is a mine to win."]
-      ]
-     [game-table grid revealed flags game-over?]
-     [game-status game-over? won? remaining-flags]
-     [reset-button]
-     ]))
+      [:h1 {:id "title"} "Minesweeper Cljs 🚩"]
+      [:p {:id "instructions"} "Instructions: Left-click to reveal position and right-click to place a flag. 
+                                Place all flags where there is a mine to win."]]
+     [game-table grid revealed flags game-over]
+     [game-status game-over won remaining-flags]
+     [reset-button]]))

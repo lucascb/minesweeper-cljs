@@ -3,9 +3,14 @@ html {
 }
 
 body {
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  background: rgb(34,193,195);
-  background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(142,45,253,1) 100%);
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  background: rgb(34, 193, 195);
+  background: linear-gradient(
+    0deg,
+    rgba(34, 193, 195, 1) 0%,
+    rgba(142, 45, 253, 1) 100%
+  );
 }
 
 #app {
@@ -30,7 +35,7 @@ img {
   /* For desktop: */
   #app {
     width: 500px;
-    height: 500px;    
+    height: 500px;
   }
 
   .grid-button {
@@ -45,24 +50,28 @@ img {
 }
 
 .grid-button-mine {
-  background-color:rgb(255, 0, 0);
+  background-color: rgb(255, 0, 0);
 }
 
 .grid-button-empty {
-  background-color:rgb(255, 176, 237);
+  background-color: rgb(255, 176, 237);
 }
 
 .grid-button-number {
-  background-color:rgb(255, 125, 225);
+  background-color: rgb(255, 125, 225);
 }
 
-h1 {
+#title {
   color: white;
   text-shadow: 2px 2px black;
   text-align: center;
 }
 
-p {
+#instructions {
+  text-align: center;
+}
+
+#game-status {
   text-align: center;
 }
 

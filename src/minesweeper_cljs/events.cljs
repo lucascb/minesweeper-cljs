@@ -18,4 +18,4 @@
 
 (re-frame/reg-event-db
  :reset-db
- (fn [db []] (assoc db :game-state (game/get-initial-state 9 9))))
+ (fn [db []] (assoc db :game-state (game/get-initial-state :medium))))

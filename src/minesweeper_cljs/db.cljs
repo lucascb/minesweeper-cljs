@@ -2,4 +2,4 @@
   (:require [minesweeper-cljs.game :as game]))
 
 (def default-db
-  {:game-state (game/get-initial-state 9 9)})
+  {:game-state (game/get-initial-state :medium)})
